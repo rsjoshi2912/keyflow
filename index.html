@@ -243,7 +243,7 @@ kbd {
 }
 .hero > .wrap { position:relative; }
 .hero .chip { margin-bottom:26px; }
-.hero h1 { font-size: clamp(42px, 6.6vw, 72px); font-weight:800; letter-spacing:-2.8px; line-height:1.04; }
+.hero h1 { font-size: clamp(36px, 6.6vw, 72px); font-weight:800; letter-spacing:-2.2px; line-height:1.06; }
 .hero h1 em {
   font-style:normal;
   background: linear-gradient(100deg, var(--accent), var(--accent-2));
@@ -529,6 +529,16 @@ footer { border-top:1px solid var(--border); padding: 52px 0 48px; }
 @media (max-width: 560px) {
   .score-grid { grid-template-columns: 1fr; }
   .nav-link { display:none; }
+  /* keyboard visual must never exceed the viewport: keys become fluid */
+  .kbd-visual { padding: 20px 12px; }
+  .kbd-row { gap:4px; }
+  .keycap { flex:1 1 0; min-width:0; height:34px; padding:0; font-size:10px; border-radius:7px; }
+  .keycap.wide { flex:1.8 1 0; min-width:0; }
+  .keycap.space { flex:5 1 0; min-width:0; }
+  .demo-body { padding: 22px 20px 24px; }
+  .type-area { font-size:19px; }
+  .demo-stats .timer { font-size:26px; }
+  .cta-key { min-width:0; width:100%; }
 }
 </style>
 </head>
