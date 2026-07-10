@@ -1,36 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <radialGradient id="glow" cx="50%" cy="0%" r="85%">
-      <stop offset="0%" stop-color="#7c8cff" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#7c8cff" stop-opacity="0"/>
+    <radialGradient id="glow" cx="78%" cy="0%" r="75%">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#4f46e5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="10%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#f5a524" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#f5a524" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#7c8cff"/>
-      <stop offset="100%" stop-color="#5866d8"/>
+      <stop offset="0%" stop-color="#7c6cf5"/>
+      <stop offset="100%" stop-color="#4338ca"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="630" fill="#0b0d12"/>
+
+  <rect width="1200" height="630" fill="#f6f8fd"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
 
   <!-- logo -->
-  <rect x="80" y="76" width="76" height="76" rx="20" fill="url(#mark)"/>
-  <text x="118" y="130" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="800" font-size="44" fill="#ffffff">A</text>
-  <text x="176" y="128" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="700" font-size="42" fill="#e8ecf3">Type<tspan fill="#7c8cff">Ace</tspan></text>
+  <rect x="80" y="74" width="78" height="78" rx="21" fill="url(#mark)"/>
+  <text x="119" y="130" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="46" fill="#ffffff">V</text>
+  <text x="180" y="128" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="44" letter-spacing="-1" fill="#10152a">V<tspan fill="#4f46e5">Type</tspan></text>
+  <text x="182" y="158" font-family="Helvetica Neue, Arial, sans-serif" font-weight="600" font-size="19" letter-spacing="0.5" fill="#8b93ac">by Vidyanto</text>
 
   <!-- headline -->
-  <text x="80" y="285" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="800" font-size="76" letter-spacing="-2.5" fill="#e8ecf3">Type faster.</text>
-  <text x="80" y="370" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="800" font-size="76" letter-spacing="-2.5" fill="#7c8cff">Ace your typing exam.</text>
+  <text x="80" y="292" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="78" letter-spacing="-3" fill="#10152a">Type faster.</text>
+  <text x="80" y="382" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="78" letter-spacing="-3" fill="#4f46e5">Ace every exam.</text>
 
-  <text x="80" y="440" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="500" font-size="30" fill="#98a2b3">Typing tests · Exam mocks (SSC · CPCT · RRB) · Lessons — offline &amp; private</text>
+  <text x="80" y="452" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="29" fill="#545d78">Typing speed tests · Exam mocks (SSC · CPCT · RRB) · Lessons — free to start</text>
 
-  <!-- platform pills -->
-  <rect x="80" y="490" width="260" height="58" rx="29" fill="#12151d" stroke="#222836" stroke-width="2"/>
-  <text x="210" y="528" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="600" font-size="26" fill="#e8ecf3">​ macOS</text>
-  <rect x="360" y="490" width="280" height="58" rx="29" fill="#12151d" stroke="#222836" stroke-width="2"/>
-  <text x="500" y="528" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="600" font-size="26" fill="#e8ecf3">Windows</text>
-  <rect x="680" y="490" width="330" height="58" rx="29" fill="rgba(124,140,255,0.13)" stroke="#7c8cff" stroke-width="2"/>
-  <text x="845" y="528" text-anchor="middle" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="700" font-size="26" fill="#7c8cff">100% Free · No ads</text>
+  <!-- platform / trust pills -->
+  <rect x="80" y="502" width="230" height="60" rx="30" fill="#ffffff" stroke="#e6e9f4" stroke-width="2"/>
+  <text x="195" y="541" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="26" fill="#10152a">macOS</text>
+  <rect x="330" y="502" width="240" height="60" rx="30" fill="#ffffff" stroke="#e6e9f4" stroke-width="2"/>
+  <text x="450" y="541" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="26" fill="#10152a">Windows</text>
+  <rect x="590" y="502" width="290" height="60" rx="30" fill="#e2f6ee" stroke="#0b9d6e" stroke-width="2"/>
+  <text x="735" y="541" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="26" fill="#0b9d6e">Free · No ads</text>
 
   <!-- caret accent -->
-  <rect x="856" y="304" width="8" height="72" rx="4" fill="#7c8cff"/>
+  <rect x="905" y="316" width="9" height="74" rx="4.5" fill="#4f46e5"/>
 </svg>
