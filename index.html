@@ -616,21 +616,16 @@ footer { border-top:1px solid var(--border); padding: 56px 0 46px; background:va
       <div class="dl" id="dl">
         <a class="dl-main" id="dlMain" href="https://github.com/rsjoshi2912/keyflow/releases/download/v1.1.0/TypeAce-1.1.0-apple-silicon.dmg">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="dlIcon"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <span class="dl-label"><span id="dlText">Download for Mac</span><span class="dl-size" id="dlSize">Apple Silicon · .dmg · 94 MB</span></span>
+          <span class="dl-label"><span id="dlText">Download for Mac</span><span class="dl-size" id="dlSize">macOS · .dmg</span></span>
         </a>
         <button class="dl-toggle" id="dlToggle" aria-haspopup="true" aria-expanded="false" aria-label="Choose a different platform">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="dl-menu" id="dlMenu" role="menu">
-          <a role="menuitem" href="https://github.com/rsjoshi2912/keyflow/releases/download/v1.1.0/TypeAce-1.1.0-apple-silicon.dmg">
+          <a role="menuitem" id="dlMac" href="https://github.com/rsjoshi2912/keyflow/releases/download/v1.1.0/TypeAce-1.1.0-apple-silicon.dmg">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <span><b>macOS — Apple Silicon</b><small>M1 / M2 / M3 / M4</small></span>
-            <span class="dm-meta">.dmg · 94 MB</span>
-          </a>
-          <a role="menuitem" href="https://github.com/rsjoshi2912/keyflow/releases/download/v1.1.0/TypeAce-1.1.0-intel.dmg">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <span><b>macOS — Intel</b><small>Intel-based Macs</small></span>
-            <span class="dm-meta">.dmg · 98 MB</span>
+            <span><b>macOS</b><small>Apple Silicon or Intel — auto-selected</small></span>
+            <span class="dm-meta">.dmg</span>
           </a>
           <a role="menuitem" href="https://github.com/rsjoshi2912/keyflow/releases/download/v1.1.0/TypeAce-Setup-1.1.0.exe">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.55 10.5 4.5v7H3v-5.95zM3 18.45V12.5h7.5v7L3 18.45zM11.5 4.35 21 3v8.5h-9.5v-7.15zM21 12.5V21l-9.5-1.35V12.5H21z"/></svg>
@@ -1009,7 +1004,29 @@ tbtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') 
     document.getElementById('ctaDl').setAttribute('href', REL + 'TypeAce-Setup-1.1.0.exe');
     const ci = document.querySelector('#ctaDl svg'); if (ci) ci.innerHTML = WIN_ICON;
   }
-  // Mac (Apple Silicon) stays the default already set in the markup.
+  else {
+    // Mac: a single option that auto-selects Apple Silicon vs Intel.
+    size.textContent = 'macOS · .dmg';
+    (async () => {
+      let arch = 'silicon'; // sensible default (most modern Macs)
+      try {
+        if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+          const h = await navigator.userAgentData.getHighEntropyValues(['architecture']);
+          if (h.architecture === 'arm') arch = 'silicon';
+          else if (h.architecture === 'x86') arch = 'intel';
+        } else {
+          const gl = document.createElement('canvas').getContext('webgl');
+          const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+          const r = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : '';
+          if (/intel|amd|radeon/i.test(r) && !/apple/i.test(r)) arch = 'intel';
+        }
+      } catch (e) {}
+      const href = REL + (arch === 'intel' ? 'TypeAce-1.1.0-intel.dmg' : 'TypeAce-1.1.0-apple-silicon.dmg');
+      main.setAttribute('href', href);
+      const dlMac = document.getElementById('dlMac'); if (dlMac) dlMac.setAttribute('href', href);
+      const cta = document.getElementById('ctaDl'); if (cta) cta.setAttribute('href', href);
+    })();
+  }
   const cs = document.getElementById('ctaSize'); if (cs) cs.textContent = ctaLabel;
 
   /* dropdown */
