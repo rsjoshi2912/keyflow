@@ -460,6 +460,51 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
 .auth-legal { text-align:center; margin-top:18px; font-size:11.5px; color:var(--text-faint); line-height:1.5; }
 [data-views][hidden] { display:none !important; }
 
+/* ============ My Profile page (web dashboard) ============ */
+.pfp-overlay { position:fixed; inset:0; z-index:200; background:var(--bg); overflow-y:auto;
+  opacity:0; pointer-events:none; transition:opacity .2s; }
+.pfp-overlay.open { opacity:1; pointer-events:auto; }
+.pfp-page { min-height:100%; padding-bottom:64px; }
+.pfp-bar { display:flex; align-items:center; justify-content:space-between; padding:15px 28px;
+  max-width:1080px; margin:0 auto; border-bottom:1px solid var(--border); }
+.pfp-close { background:var(--bg-elev); border:1px solid var(--border); border-radius:9px;
+  padding:8px 15px; color:var(--text-dim); cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:600; }
+.pfp-close:hover { border-color:var(--accent); color:var(--text); }
+.pfp-head { display:flex; align-items:center; gap:22px; padding:44px 0 36px; }
+.pfp-avatar { width:84px; height:84px; border-radius:50%; flex-shrink:0; overflow:hidden;
+  background:linear-gradient(135deg,var(--accent),#5866d8); color:#fff; display:grid; place-items:center; font-size:34px; font-weight:800; }
+.pfp-avatar img { width:100%; height:100%; object-fit:cover; }
+.pfp-id h1 { font-size:clamp(24px,4vw,32px); font-weight:800; letter-spacing:-.03em; }
+.pfp-email { color:var(--text-dim); font-size:15px; margin-top:4px; word-break:break-all; }
+.pfp-badges { display:flex; align-items:center; gap:12px; margin-top:12px; flex-wrap:wrap; }
+.pfp-since { color:var(--text-faint); font-size:13px; }
+.pfp-loading, .pfp-empty { color:var(--text-dim); font-size:15px; padding:24px 0; }
+.pfp-empty b { color:var(--text); }
+.pfp-empty a { color:var(--accent); text-decoration:none; font-weight:600; }
+.pfp-empty a:hover { text-decoration:underline; }
+.pfp-sec { font-family:"SF Mono", ui-monospace, monospace; font-size:12px; font-weight:600;
+  letter-spacing:.06em; color:var(--accent); margin:34px 0 16px; }
+.pfp-stats { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+.pfp-stat { background:var(--bg-elev); border:1px solid var(--border); border-radius:14px; padding:18px; }
+.pfp-stat b { display:block; font-size:26px; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.pfp-stat span { display:block; font-size:11.5px; color:var(--text-faint); margin-top:4px; }
+.pfp-completion { background:var(--bg-elev); border:1px solid var(--border); border-radius:14px; padding:20px; margin-top:22px; }
+.pfp-completion-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px; }
+.pfp-completion-val { font-variant-numeric:tabular-nums; color:var(--text-dim); font-size:14px; }
+.pfp-progbar { height:8px; border-radius:99px; background:var(--bg-elev2); overflow:hidden; }
+.pfp-progfill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .5s ease; }
+.pfp-lower { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px; }
+.pfp-card { background:var(--bg-elev); border:1px solid var(--border); border-radius:16px; padding:22px; }
+.pfp-card h3 { font-size:15px; font-weight:700; margin-bottom:6px; }
+.pfp-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 0; border-top:1px solid var(--border); }
+.pfp-row:first-of-type { border-top:none; }
+.pfp-row-main { display:flex; flex-direction:column; }
+.pfp-row-main b { font-size:14px; font-weight:600; }
+.pfp-row-main small { color:var(--text-faint); font-size:12px; }
+.pfp-row-val { font-variant-numeric:tabular-nums; color:var(--text-dim); font-size:13.5px; font-weight:600; white-space:nowrap; }
+@media (max-width:820px){ .pfp-stats { grid-template-columns:repeat(3,1fr); } .pfp-lower { grid-template-columns:1fr; } .pfp-head { padding:32px 0 28px; } }
+@media (max-width:520px){ .pfp-stats { grid-template-columns:repeat(2,1fr); } }
+
 /* ============ responsive ============ */
 @media (max-width: 860px){
   section { padding: 76px 0; }
@@ -514,6 +559,7 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
         <div class="acct-pop" id="acctPop" role="menu">
           <div class="acct-pop-head"><b id="acctPopName">Signed in</b><small id="acctPopEmail"></small></div>
           <div class="acct-pop-sep"></div>
+          <button role="menuitem" id="acctProfile">My Profile</button>
           <a role="menuitem" href="#download">Get the desktop app</a>
           <button role="menuitem" id="acctLogout">Log out</button>
         </div>
@@ -811,6 +857,27 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
   </div>
 </footer>
 
+<!-- ============ My Profile (web dashboard, reads synced progress from Firestore) ============ -->
+<div class="pfp-overlay" id="pfpOverlay" role="dialog" aria-modal="true" aria-labelledby="pfpName">
+  <div class="pfp-page">
+    <div class="pfp-bar">
+      <a class="logo" href="#" aria-label="TypeAce home"><div class="logo-mark" aria-hidden="true">A</div><div class="logo-name">Type<span>Ace</span></div></a>
+      <button class="pfp-close" id="pfpClose">✕ Close</button>
+    </div>
+    <div class="wrap">
+      <div class="pfp-head">
+        <div class="pfp-avatar" id="pfpAvatar" aria-hidden="true">A</div>
+        <div class="pfp-id">
+          <h1 id="pfpName">Your profile</h1>
+          <div class="pfp-email" id="pfpEmail"></div>
+          <div class="pfp-badges"><span class="chip chip-good" id="pfpPlan">Free plan</span><span class="pfp-since" id="pfpSince"></span></div>
+        </div>
+      </div>
+      <div id="pfpBody"><p class="pfp-loading">Loading your progress…</p></div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ auth modal ============ -->
 <div class="auth-overlay" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
   <div class="auth-card" id="authCard" data-view="login">
@@ -1004,12 +1071,16 @@ const firebaseConfig = {
 const CONFIGURED = !Object.values(firebaseConfig).some(v => String(v).includes("PASTE_"));
 const SDK = "https://www.gstatic.com/firebasejs/10.12.5/";
 
-let auth = null, fb = null, provider = null;
+let auth = null, fb = null, provider = null, fs = null, db = null;
 if (CONFIGURED) {
   try {
-    const [{ initializeApp }, m] = await Promise.all([ import(SDK + "firebase-app.js"), import(SDK + "firebase-auth.js") ]);
-    fb = m;
-    auth = m.getAuth(initializeApp(firebaseConfig));
+    const [{ initializeApp }, m, fstore] = await Promise.all([
+      import(SDK + "firebase-app.js"), import(SDK + "firebase-auth.js"), import(SDK + "firebase-firestore.js")
+    ]);
+    fb = m; fs = fstore;
+    const appInst = initializeApp(firebaseConfig);
+    auth = m.getAuth(appInst);
+    db = fstore.getFirestore(appInst);
     provider = new m.GoogleAuthProvider();
     m.onAuthStateChanged(auth, renderUser);
   } catch (e) { console.error("Firebase init failed:", e); }
@@ -1128,7 +1199,97 @@ acctChip.onclick = () => { const o = acctMenu.classList.toggle("open"); acctChip
 document.addEventListener("click", (e) => { if (!acctMenu.contains(e.target)) acctMenu.classList.remove("open"); });
 $("acctLogout").onclick = async () => { if (auth) await fb.signOut(auth); acctMenu.classList.remove("open"); };
 
-/* ── 6. Friendly Firebase error messages ─────────────────────────────────── */
+/* ── 6. My Profile page (reads synced progress from Firestore) ─────────────── */
+const pfpOverlay = $("pfpOverlay");
+function openProfile() {
+  const user = auth && auth.currentUser;
+  if (!user) return;
+  acctMenu.classList.remove("open");
+  const name = user.displayName || user.email.split("@")[0];
+  $("pfpName").textContent = user.displayName || name;
+  $("pfpEmail").textContent = user.email || "";
+  const av = $("pfpAvatar");
+  av.innerHTML = "";
+  if (user.photoURL) { const img = document.createElement("img"); img.src = user.photoURL; img.alt = ""; av.appendChild(img); }
+  else av.textContent = (name[0] || "A").toUpperCase();
+  $("pfpBody").innerHTML = '<p class="pfp-loading">Loading your progress…</p>';
+  $("pfpSince").textContent = "";
+  pfpOverlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+  loadProfile(user);
+}
+function closeProfile() { pfpOverlay.classList.remove("open"); document.body.style.overflow = ""; }
+$("acctProfile").onclick = openProfile;
+$("pfpClose").onclick = closeProfile;
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && pfpOverlay.classList.contains("open")) closeProfile(); });
+
+async function loadProfile(user) {
+  let data = null;
+  try {
+    if (db && fs) {
+      const snap = await fs.getDoc(fs.doc(db, "users", user.uid, "state", "data"));
+      if (snap.exists() && snap.data().blob) data = JSON.parse(snap.data().blob);
+    }
+  } catch (e) { console.error("Profile load failed:", e); }
+  renderProfileDashboard(data);
+}
+
+const fmtDur = (sec) => { sec = Math.round(sec || 0); const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60); return h ? `${h}h ${m}m` : (m ? `${m}m` : `${sec}s`); };
+const escp = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+const labelType = (t) => { t = String(t || "test"); return t.startsWith("mock") ? "Exam mock" : t.startsWith("lesson") ? "Lesson" : t === "passage" ? "Passage" : t === "custom" ? "Custom text" : "Typing test"; };
+
+function renderProfileDashboard(data) {
+  const body = $("pfpBody");
+  if (!data || !Array.isArray(data.sessions) || !data.sessions.length) {
+    body.innerHTML = '<p class="pfp-empty"><b>No progress synced yet.</b> Sign in to the <a href="#download">TypeAce desktop app</a> and take a typing test — your results appear here automatically.</p>';
+    return;
+  }
+  const sessions = data.sessions;
+  const tests = sessions.filter((s) => !String(s.type || "").startsWith("lesson"));
+  const bestWpm = tests.length ? Math.max(...tests.map((s) => s.wpmNet || 0)) : 0;
+  const avgAcc = sessions.reduce((a, s) => a + (s.accuracy || 0), 0) / sessions.length;
+  const totalSec = sessions.reduce((a, s) => a + (s.duration || 0), 0);
+  const gamesBest = Math.max(0, ...Object.values(data.games || {}).map((g) => (g && g.highScore) || 0));
+  const lessonsDone = Object.values(data.lessonProgress || {}).filter((p) => p && p.completedAt).length;
+  const dayKey = (dt) => { const x = new Date(dt); return `${x.getFullYear()}-${x.getMonth()}-${x.getDate()}`; };
+  const days = new Set(sessions.map((s) => dayKey(s.date)));
+  let dd = new Date(), streak = 0;
+  if (!days.has(dayKey(dd))) dd.setDate(dd.getDate() - 1);
+  while (days.has(dayKey(dd))) { streak++; dd.setDate(dd.getDate() - 1); }
+  const first = sessions.reduce((a, s) => (new Date(s.date) < new Date(a.date) ? s : a));
+  $("pfpSince").textContent = "Practicing since " + new Date(first.date).toLocaleDateString(undefined, { month: "short", year: "numeric" });
+
+  const TOTAL = 16, pct = Math.min(100, Math.round(lessonsDone / TOTAL * 100));
+  const recent = [...sessions].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
+  const GAME = { wordRain: "Word Rain", ghostRace: "Ghost Race", hotStreak: "Hot Streak" };
+  const bestRows = [];
+  if (bestWpm) bestRows.push(["Fastest test", `${Math.round(bestWpm)} WPM`]);
+  for (const [g, v] of Object.entries(data.games || {})) if (v && v.highScore) bestRows.push([GAME[g] || g, String(v.highScore)]);
+  if (lessonsDone) bestRows.push(["Lessons completed", `${lessonsDone} of ${TOTAL}`]);
+
+  const stat = (v, l) => `<div class="pfp-stat"><b>${v}</b><span>${l}</span></div>`;
+  body.innerHTML =
+    '<div class="pfp-sec">// Progress at a glance</div>' +
+    '<div class="pfp-stats">' +
+      stat(bestWpm ? Math.round(bestWpm) : "—", "Best WPM") +
+      stat(sessions.length ? avgAcc.toFixed(1) + "%" : "—", "Avg accuracy") +
+      stat(tests.length, "Tests taken") +
+      stat(totalSec ? fmtDur(totalSec) : "—", "Time practiced") +
+      stat(streak, "Day streak") +
+      stat(gamesBest ? gamesBest : "—", "Best game score") +
+    '</div>' +
+    '<div class="pfp-completion"><div class="pfp-completion-top"><b>Lessons completed</b><span class="pfp-completion-val">' + lessonsDone + ' / ' + TOTAL + '</span></div><div class="pfp-progbar"><div class="pfp-progfill" style="width:' + pct + '%"></div></div></div>' +
+    '<div class="pfp-lower">' +
+      '<div class="pfp-card"><h3>Recent activity</h3>' +
+        recent.map((s) => '<div class="pfp-row"><div class="pfp-row-main"><b>' + labelType(s.type) + '</b><small>' + new Date(s.date).toLocaleDateString(undefined, { month: "short", day: "numeric" }) + '</small></div><span class="pfp-row-val">' + Math.round(s.wpmNet || 0) + ' WPM · ' + Math.round(s.accuracy || 0) + '%</span></div>').join('') +
+      '</div>' +
+      '<div class="pfp-card"><h3>Personal bests</h3>' +
+        (bestRows.length ? bestRows.map(([k, v]) => '<div class="pfp-row"><b>' + escp(k) + '</b><span class="pfp-row-val">' + escp(v) + '</span></div>').join('') : '<p class="pfp-empty">Your records will show up here.</p>') +
+      '</div>' +
+    '</div>';
+}
+
+/* ── 7. Friendly Firebase error messages ─────────────────────────────────── */
 function mapErr(err) {
   const c = (err && err.code) || "";
   return ({
