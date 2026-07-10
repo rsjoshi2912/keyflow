@@ -72,8 +72,8 @@
     },
     {
       "@type": "Question",
-      "name": "Does TypeAce work offline?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. TypeAce is a desktop app that works fully offline. Tests, mocks, lessons and your progress history all run and are stored locally on your computer — nothing is sent to the internet." }
+      "name": "Do I need an account with TypeAce, and what syncs?",
+      "acceptedAnswer": { "@type": "Answer", "text": "You sign in once with an email and password or with Google — it is free, with no ads or paid tiers. Your sessions, streaks, lesson progress and personal bests then sync securely to every device you sign in on. Typing itself still works offline and your results sync the next time you are online." }
     },
     {
       "@type": "Question",
@@ -382,6 +382,82 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
 .foot-bottom { border-top:1px solid var(--border); padding-top:22px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .foot-bottom small { color:var(--text-faint); font-size:12.5px; }
 
+/* ============ account (nav) ============ */
+.acct { display:flex; align-items:center; gap:10px; }
+.acct-login { background:none; border:none; cursor:pointer; font-family:inherit; }
+.btn.acct-signup { padding:8px 15px; font-size:14px; border-color:var(--accent); color:var(--accent); }
+.btn.acct-signup:hover { background:var(--accent); color:var(--accent-ink); }
+.acct-menu { position:relative; }
+.acct-chip { display:flex; align-items:center; gap:8px; background:var(--bg-elev); border:1px solid var(--border);
+  border-radius:99px; padding:5px 12px 5px 5px; cursor:pointer; color:var(--text); font-family:inherit; font-size:14px; font-weight:600; }
+.acct-chip:hover { border-color:var(--accent); }
+.acct-avatar { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,var(--accent),#5866d8);
+  color:#fff; display:grid; place-items:center; font-size:12px; font-weight:800; overflow:hidden; }
+.acct-avatar img { width:100%; height:100%; object-fit:cover; }
+.acct-name { max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.acct-pop { position:absolute; top:calc(100% + 10px); right:0; min-width:220px; z-index:30;
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:14px; padding:7px;
+  box-shadow:0 24px 60px -24px rgba(0,0,0,.6); opacity:0; transform:translateY(-6px); pointer-events:none; transition:opacity .16s, transform .16s; }
+.acct-menu.open .acct-pop { opacity:1; transform:none; pointer-events:auto; }
+.acct-pop-head { padding:9px 11px 10px; }
+.acct-pop-head b { display:block; font-size:14px; }
+.acct-pop-head small { color:var(--text-faint); font-size:12.5px; word-break:break-all; }
+.acct-pop-sep { height:1px; background:var(--border); margin:2px 8px 6px; }
+.acct-pop a, .acct-pop button { display:block; width:100%; text-align:left; padding:9px 11px; border-radius:9px;
+  text-decoration:none; color:var(--text); background:none; border:none; cursor:pointer; font-family:inherit; font-size:14px; }
+.acct-pop a:hover, .acct-pop button:hover { background:var(--bg-elev2); }
+#acctLogout { color:var(--bad); }
+
+/* ============ auth modal ============ */
+.auth-overlay { position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px;
+  background:color-mix(in srgb, var(--bg) 72%, rgba(0,0,0,.5)); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  opacity:0; pointer-events:none; transition:opacity .2s; }
+.auth-overlay.open { opacity:1; pointer-events:auto; }
+.auth-card { width:100%; max-width:412px; background:var(--bg-elev); border:1px solid var(--border);
+  border-radius:20px; padding:34px 32px 30px; box-shadow:0 40px 100px -40px rgba(0,0,0,.7);
+  transform:translateY(12px) scale(.98); transition:transform .22s cubic-bezier(.2,.7,.2,1); }
+.auth-overlay.open .auth-card { transform:none; }
+.auth-close { position:absolute; top:18px; right:18px; width:34px; height:34px; border-radius:9px;
+  background:none; border:1px solid var(--border); color:var(--text-dim); cursor:pointer; font-size:16px; }
+.auth-close:hover { border-color:var(--accent); color:var(--text); }
+.auth-brand { display:flex; align-items:center; gap:9px; margin-bottom:22px; }
+.auth-brand .logo-mark { width:30px; height:30px; font-size:15px; border-radius:8px; }
+.auth-brand .logo-name { font-weight:700; font-size:15px; letter-spacing:-.02em; }
+.auth-brand .logo-name span { color:var(--accent); }
+.auth-title { font-size:23px; font-weight:800; letter-spacing:-.02em; }
+.auth-desc { color:var(--text-dim); font-size:14px; margin-top:6px; margin-bottom:22px; }
+.auth-google { width:100%; display:flex; align-items:center; justify-content:center; gap:11px;
+  padding:12px; border-radius:11px; border:1px solid var(--border); background:var(--bg-elev2);
+  color:var(--text); font-family:inherit; font-size:15px; font-weight:600; cursor:pointer; transition:border-color .15s; }
+.auth-google:hover { border-color:var(--accent); }
+.auth-google svg { width:19px; height:19px; }
+.auth-or { display:flex; align-items:center; gap:14px; margin:20px 0; color:var(--text-faint); font-size:12px;
+  font-family:"SF Mono",ui-monospace,monospace; }
+.auth-or::before, .auth-or::after { content:""; flex:1; height:1px; background:var(--border); }
+.auth-field { margin-bottom:14px; }
+.auth-field label { display:block; font-size:12.5px; font-weight:600; color:var(--text-dim); margin-bottom:6px; }
+.auth-field input { width:100%; padding:12px 14px; border-radius:11px; border:1px solid var(--border);
+  background:var(--bg); color:var(--text); font-family:inherit; font-size:15px; transition:border-color .15s; }
+.auth-field input:focus { outline:none; border-color:var(--accent); }
+.auth-field input.err { border-color:var(--bad); }
+.auth-row { display:flex; justify-content:flex-end; margin:-4px 0 16px; }
+.auth-link { background:none; border:none; color:var(--accent); cursor:pointer; font-family:inherit; font-size:13px; font-weight:600; padding:0; }
+.auth-link:hover { text-decoration:underline; }
+.auth-submit { width:100%; padding:13px; border-radius:11px; border:1px solid var(--accent);
+  background:var(--accent); color:var(--accent-ink); font-family:inherit; font-size:15.5px; font-weight:700; cursor:pointer; transition:filter .12s; }
+.auth-submit:hover { filter:brightness(1.07); }
+.auth-submit:disabled { opacity:.6; cursor:default; }
+.auth-msg { font-size:13.5px; padding:11px 13px; border-radius:10px; margin-bottom:16px; display:none; line-height:1.45; }
+.auth-msg.show { display:block; }
+.auth-msg.error { background:var(--bad-soft, rgba(248,113,113,.13)); color:var(--bad); border:1px solid color-mix(in srgb,var(--bad) 30%, transparent); }
+.auth-msg.ok { background:var(--good-soft); color:var(--good); border:1px solid color-mix(in srgb,var(--good) 30%, transparent); }
+.auth-msg.info { background:var(--accent-soft); color:var(--accent); border:1px solid color-mix(in srgb,var(--accent) 30%, transparent); }
+.auth-foot { text-align:center; margin-top:20px; font-size:14px; color:var(--text-dim); }
+.auth-foot button { background:none; border:none; color:var(--accent); cursor:pointer; font-family:inherit; font-size:14px; font-weight:700; padding:0; }
+.auth-foot button:hover { text-decoration:underline; }
+.auth-legal { text-align:center; margin-top:18px; font-size:11.5px; color:var(--text-faint); line-height:1.5; }
+[data-views][hidden] { display:none !important; }
+
 /* ============ responsive ============ */
 @media (max-width: 860px){
   section { padding: 76px 0; }
@@ -398,6 +474,7 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
   .foot-top { flex-direction:column; }
 }
 @media (max-width: 560px){
+  .acct-login { display:inline-block; }
   .hero { padding: 48px 0 68px; }
   .score-grid { grid-template-columns: 1fr; }
   .demo-stats { gap:22px; }
@@ -419,17 +496,35 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
       <a class="nav-link" href="#mocks">Exam mocks</a>
       <a class="nav-link" href="#features">Features</a>
       <a class="nav-link" href="#faq">FAQ</a>
-      <a class="nav-link" href="https://github.com/rsjoshi2912/keyflow" target="_blank" rel="noopener">GitHub</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark / light theme">🌙</button>
+      <!-- account: logged-out -->
+      <div class="acct" id="acctLoggedOut">
+        <button class="nav-link acct-login" id="navLogin">Log in</button>
+        <button class="btn acct-signup" id="navSignup">Sign up free</button>
+      </div>
+      <!-- account: logged-in (hidden until auth) -->
+      <div class="acct-menu" id="acctLoggedIn" hidden>
+        <button class="acct-chip" id="acctChip" aria-haspopup="true" aria-expanded="false">
+          <span class="acct-avatar" id="acctAvatar">A</span>
+          <span class="acct-name" id="acctName">Account</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acct-pop" id="acctPop" role="menu">
+          <div class="acct-pop-head"><b id="acctPopName">Signed in</b><small id="acctPopEmail"></small></div>
+          <div class="acct-pop-sep"></div>
+          <a role="menuitem" href="#download">Get the desktop app</a>
+          <button role="menuitem" id="acctLogout">Log out</button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <span class="hero-eyebrow"><span class="dot" aria-hidden="true"></span> Free &amp; open source · Mac &amp; Windows · v1.1.0</span>
+    <span class="hero-eyebrow"><span class="dot" aria-hidden="true"></span> Free · Mac &amp; Windows · one account, every device</span>
     <h1>Type faster.<br>Ace <span class="mark">every exam</span>.<span class="caret" aria-hidden="true"></span></h1>
-    <p class="tagline">A free typing coach for desktop — timed speed tests, real exam mocks, and drills that fix your weak keys. Offline. No account. No ads.</p>
+    <p class="tagline">A free typing coach for desktop — timed speed tests, real exam mocks, and drills that fix your weak keys. Sign in once and your progress follows you to every machine.</p>
 
     <div class="hero-ctas">
       <!-- one button, every platform -->
@@ -461,9 +556,9 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
           <a role="menuitem" class="dm-all" href="https://github.com/rsjoshi2912/keyflow/releases" target="_blank" rel="noopener">All versions &amp; SHA-256 checksums →</a>
         </div>
       </div>
-      <a class="btn btn-ghost" href="#mocks">See exam mocks</a>
+      <button class="btn btn-ghost" id="heroSignup">Create free account</button>
     </div>
-    <div class="hero-note">No signup · installs in a minute · your data never leaves your computer</div>
+    <div class="hero-note">Free account · installs in a minute · your progress syncs securely across devices</div>
 
     <div class="demo-shell" aria-hidden="true">
       <div class="demo-titlebar">
@@ -488,8 +583,8 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
     <div class="sec-head reveal">
       <div class="ruler stagger">
         <div><b>100% free</b><small>MIT licensed, forever</small></div>
-        <div><b>Fully offline</b><small>no internet needed</small></div>
-        <div><b>Private</b><small>no account, no telemetry</small></div>
+        <div><b>Cloud sync</b><small>your progress, everywhere</small></div>
+        <div><b>Secure</b><small>encrypted sign-in, no ads</small></div>
         <div><b>Mac &amp; Windows</b><small>native desktop app</small></div>
       </div>
     </div>
@@ -537,10 +632,10 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
       </div>
       <div class="feat">
         <div class="fnum">/06</div>
-        <div class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></div>
-        <h3>Private &amp; offline</h3>
-        <p>No account, no telemetry, no cloud. Everything stays on your device, with one-click JSON backup.</p>
-        <div class="ftags"><span class="ftag">local only</span><span class="ftag">export / import</span></div>
+        <div class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97A6 6 0 0 0 6.2 9.2 4 4 0 0 0 6.5 19z"/><path d="M12 12v6m0-6-2.2 2.2M12 12l2.2 2.2"/></svg></div>
+        <h3>Sync across devices</h3>
+        <p>One free account keeps your sessions, streaks and personal bests in sync on every Mac and PC you sign in on.</p>
+        <div class="ftags"><span class="ftag">cloud backup</span><span class="ftag">Google sign-in</span></div>
       </div>
     </div>
   </div>
@@ -647,8 +742,12 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
         <p class="faq-body">Yes. Mock tests are modeled on SSC CHSL/CGL DEST, CPCT English typing, RRB NTPC skill test and court patterns. They replicate the real rules — backspace disabled, continuous passage, fixed duration — and give a clear qualified / not-qualified verdict. Always verify the latest official notification for exact rules.</p>
       </details>
       <details class="faq-item">
-        <summary>Does it work offline?</summary>
-        <p class="faq-body">Fully. It's a desktop app — tests, mocks, lessons and your entire progress history run and are stored locally. Nothing is ever sent to the internet.</p>
+        <summary>Do I need an account? What syncs?</summary>
+        <p class="faq-body">You sign in once with an email and password or with Google — it's free, with no ads or paid tiers. Your sessions, streaks, lesson progress and personal bests then sync securely to every device you sign in on. Typing itself still works offline; your results sync the next time you're online.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is sign-in with Google supported?</summary>
+        <p class="faq-body">Yes. Choose <b>Continue with Google</b> on the login or register screen — on the site and in the desktop app — to create your account in one tap. You can also use a regular email and password, and reset it any time from the <b>Forgot password</b> link.</p>
       </details>
       <details class="faq-item">
         <summary>Why does my computer warn me on first launch?</summary>
@@ -666,7 +765,7 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
   <div class="cta-inner">
     <div class="wrap reveal">
       <h2>Stop practicing on ad-filled websites.</h2>
-      <p>Free for Mac and Windows. No account. Works offline.</p>
+      <p>Free for Mac and Windows. One account, every device.</p>
       <div class="hero-ctas" style="justify-content:center">
         <a class="dl-main" id="ctaDl" href="https://github.com/rsjoshi2912/keyflow/releases/download/v1.1.0/TypeAce-1.1.0-apple-silicon.dmg" style="border-radius:12px">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -709,6 +808,54 @@ footer { border-top:1px solid var(--border); padding: 48px 0 44px; }
     </div>
   </div>
 </footer>
+
+<!-- ============ auth modal ============ -->
+<div class="auth-overlay" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="auth-card" id="authCard" data-view="login">
+    <button class="auth-close" id="authClose" aria-label="Close">✕</button>
+    <div class="auth-brand"><div class="logo-mark">A</div><div class="logo-name">Type<span>Ace</span></div></div>
+
+    <h2 class="auth-title" id="authTitle">Welcome back</h2>
+    <p class="auth-desc" id="authDesc">Log in to sync your progress across devices.</p>
+
+    <div class="auth-msg" id="authMsg" role="alert"></div>
+
+    <!-- Google (login + register) -->
+    <button class="auth-google" id="authGoogle" data-views="login,register">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.2c0-.7-.06-1.4-.18-2.06H12v3.9h5.9a5.05 5.05 0 0 1-2.19 3.31v2.75h3.54c2.07-1.9 3.25-4.72 3.25-7.9z"/><path fill="#34A853" d="M12 23c2.95 0 5.43-.98 7.24-2.65l-3.54-2.75c-.98.66-2.24 1.05-3.7 1.05-2.85 0-5.26-1.92-6.12-4.5H2.22v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.88 14.15a6.6 6.6 0 0 1 0-4.3V7.01H2.22a11 11 0 0 0 0 9.98l3.66-2.84z"/><path fill="#EA4335" d="M12 5.2c1.6 0 3.05.55 4.19 1.64l3.14-3.14A11 11 0 0 0 12 1 11 11 0 0 0 2.22 7.01l3.66 2.84C6.74 7.12 9.15 5.2 12 5.2z"/></svg>
+      <span id="authGoogleLabel">Continue with Google</span>
+    </button>
+    <div class="auth-or" data-views="login,register">or with email</div>
+
+    <form id="authForm" novalidate>
+      <!-- name: register only -->
+      <div class="auth-field" data-views="register">
+        <label for="afName">Name</label>
+        <input id="afName" type="text" autocomplete="name" placeholder="Your name">
+      </div>
+      <div class="auth-field">
+        <label for="afEmail">Email</label>
+        <input id="afEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+      </div>
+      <!-- password: login + register -->
+      <div class="auth-field" data-views="login,register">
+        <label for="afPass">Password</label>
+        <input id="afPass" type="password" autocomplete="current-password" placeholder="••••••••" required>
+      </div>
+      <div class="auth-row" data-views="login">
+        <button type="button" class="auth-link" id="authForgotLink">Forgot password?</button>
+      </div>
+      <button type="submit" class="auth-submit" id="authSubmit">Log in</button>
+    </form>
+
+    <p class="auth-foot">
+      <span data-views="login">New to TypeAce? <button type="button" id="toRegister">Create an account</button></span>
+      <span data-views="register">Already have an account? <button type="button" id="toLogin">Log in</button></span>
+      <span data-views="forgot"><button type="button" id="backToLogin">← Back to log in</button></span>
+    </p>
+    <p class="auth-legal" data-views="register">By creating an account you agree to keep it civil. TypeAce is free and open source.</p>
+  </div>
+</div>
 
 <script>
 /* ---- theme toggle (dark by default) ---- */
@@ -835,6 +982,164 @@ tbtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') 
   render(phrases[0]); stats();
   setTimeout(tick, 900);
 })();
+</script>
+
+<!-- ============ Firebase auth (module) ============ -->
+<script type="module">
+/* ── 1. Your Firebase config ──────────────────────────────────────────────
+   Create a free project at https://console.firebase.google.com, enable the
+   Email/Password and Google sign-in providers, then paste the web config here.
+   Full walkthrough: AUTH-SETUP.md. Until real keys are in, the UI works but
+   sign-in shows a "connect Firebase" notice.                                */
+const firebaseConfig = {
+  apiKey:      "PASTE_YOUR_FIREBASE_API_KEY",
+  authDomain:  "PASTE_YOUR_PROJECT.firebaseapp.com",
+  projectId:   "PASTE_YOUR_PROJECT_ID",
+  appId:       "PASTE_YOUR_APP_ID"
+};
+const CONFIGURED = !Object.values(firebaseConfig).some(v => String(v).includes("PASTE_"));
+const SDK = "https://www.gstatic.com/firebasejs/10.12.5/";
+
+let auth = null, fb = null, provider = null;
+if (CONFIGURED) {
+  try {
+    const [{ initializeApp }, m] = await Promise.all([ import(SDK + "firebase-app.js"), import(SDK + "firebase-auth.js") ]);
+    fb = m;
+    auth = m.getAuth(initializeApp(firebaseConfig));
+    provider = new m.GoogleAuthProvider();
+    m.onAuthStateChanged(auth, renderUser);
+  } catch (e) { console.error("Firebase init failed:", e); }
+}
+
+/* ── 2. Elements ─────────────────────────────────────────────────────────── */
+const $ = (id) => document.getElementById(id);
+const overlay = $("authOverlay"), card = $("authCard"), msg = $("authMsg");
+const fName = $("afName"), fEmail = $("afEmail"), fPass = $("afPass");
+const submitBtn = $("authSubmit"), titleEl = $("authTitle"), descEl = $("authDesc"), googleLabel = $("authGoogleLabel");
+const COPY = {
+  login:    { title: "Welcome back",     desc: "Log in to sync your progress across devices.", submit: "Log in",            g: "Continue with Google" },
+  register: { title: "Create your account", desc: "Free forever. Your progress follows you everywhere.", submit: "Create account", g: "Sign up with Google" },
+  forgot:   { title: "Reset your password", desc: "We'll email you a link to set a new password.",  submit: "Send reset link",  g: "" }
+};
+
+/* ── 3. View + modal control ─────────────────────────────────────────────── */
+function setView(v) {
+  card.dataset.view = v;
+  titleEl.textContent = COPY[v].title;
+  descEl.textContent = COPY[v].desc;
+  submitBtn.textContent = COPY[v].submit;
+  if (COPY[v].g) googleLabel.textContent = COPY[v].g;
+  // show/hide each conditional block based on the view it belongs to
+  card.querySelectorAll("[data-views]").forEach(el => {
+    el.hidden = !el.dataset.views.split(",").includes(v);
+  });
+  clearMsg();
+  [fName, fEmail, fPass].forEach(i => i && i.classList.remove("err"));
+}
+function openAuth(v = "login") {
+  setView(v);
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => fEmail.focus(), 60);
+}
+function closeAuth() { overlay.classList.remove("open"); document.body.style.overflow = ""; }
+function showMsg(text, kind = "error") { msg.textContent = text; msg.className = "auth-msg show " + kind; }
+function clearMsg() { msg.className = "auth-msg"; msg.textContent = ""; }
+function busy(on) { submitBtn.disabled = on; submitBtn.textContent = on ? "Please wait…" : COPY[card.dataset.view].submit; }
+
+/* ── 4. Wiring ───────────────────────────────────────────────────────────── */
+$("navLogin").onclick    = () => openAuth("login");
+$("navSignup").onclick   = () => openAuth("register");
+$("heroSignup").onclick  = () => openAuth("register");
+$("authClose").onclick   = closeAuth;
+overlay.addEventListener("click", (e) => { if (e.target === overlay) closeAuth(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && overlay.classList.contains("open")) closeAuth(); });
+$("toRegister").onclick   = () => setView("register");
+$("toLogin").onclick      = () => setView("login");
+$("authForgotLink").onclick = () => setView("forgot");
+$("backToLogin").onclick  = () => setView("login");
+
+const notConnected = () => showMsg("Sign-in isn't connected yet — add your Firebase keys (see AUTH-SETUP.md) to enable accounts.", "info");
+const emailOk = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+$("authGoogle").onclick = async () => {
+  clearMsg();
+  if (!CONFIGURED) return notConnected();
+  try { await fb.signInWithPopup(auth, provider); closeAuth(); }
+  catch (err) { showMsg(mapErr(err)); }
+};
+
+$("authForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  clearMsg();
+  const view = card.dataset.view;
+  const email = fEmail.value.trim();
+  fEmail.classList.toggle("err", !emailOk(email));
+  if (!emailOk(email)) return showMsg("Please enter a valid email address.");
+
+  if (view === "forgot") {
+    if (!CONFIGURED) return notConnected();
+    busy(true);
+    try { await fb.sendPasswordResetEmail(auth, email); showMsg("Check your inbox — a reset link is on the way.", "ok"); }
+    catch (err) { showMsg(mapErr(err)); }
+    busy(false); return;
+  }
+
+  const pass = fPass.value;
+  fPass.classList.toggle("err", pass.length < 6);
+  if (pass.length < 6) return showMsg("Password must be at least 6 characters.");
+  if (!CONFIGURED) return notConnected();
+
+  busy(true);
+  try {
+    if (view === "register") {
+      const cred = await fb.createUserWithEmailAndPassword(auth, email, pass);
+      const name = fName.value.trim();
+      if (name) await fb.updateProfile(cred.user, { displayName: name });
+    } else {
+      await fb.signInWithEmailAndPassword(auth, email, pass);
+    }
+    closeAuth();
+  } catch (err) { showMsg(mapErr(err)); }
+  busy(false);
+});
+
+/* ── 5. Signed-in nav state ──────────────────────────────────────────────── */
+function renderUser(user) {
+  const out = $("acctLoggedOut"), inn = $("acctLoggedIn");
+  if (user) {
+    out.hidden = true; inn.hidden = false;
+    const name = user.displayName || user.email.split("@")[0];
+    $("acctName").textContent = name;
+    $("acctPopName").textContent = user.displayName || "Signed in";
+    $("acctPopEmail").textContent = user.email || "";
+    const av = $("acctAvatar");
+    av.innerHTML = user.photoURL ? `<img src="${user.photoURL}" alt="">` : (name[0] || "A").toUpperCase();
+  } else {
+    out.hidden = false; inn.hidden = true;
+  }
+}
+const acctMenu = $("acctLoggedIn"), acctChip = $("acctChip");
+acctChip.onclick = () => { const o = acctMenu.classList.toggle("open"); acctChip.setAttribute("aria-expanded", o); };
+document.addEventListener("click", (e) => { if (!acctMenu.contains(e.target)) acctMenu.classList.remove("open"); });
+$("acctLogout").onclick = async () => { if (auth) await fb.signOut(auth); acctMenu.classList.remove("open"); };
+
+/* ── 6. Friendly Firebase error messages ─────────────────────────────────── */
+function mapErr(err) {
+  const c = (err && err.code) || "";
+  return ({
+    "auth/invalid-email": "That email doesn't look right.",
+    "auth/user-not-found": "No account found for that email. Try creating one.",
+    "auth/wrong-password": "Incorrect password. Try again or reset it.",
+    "auth/invalid-credential": "Email or password is incorrect.",
+    "auth/email-already-in-use": "An account already exists for that email — try logging in.",
+    "auth/weak-password": "Choose a stronger password (at least 6 characters).",
+    "auth/too-many-requests": "Too many attempts. Please wait a moment and try again.",
+    "auth/popup-closed-by-user": "Google sign-in was cancelled.",
+    "auth/popup-blocked": "Your browser blocked the Google popup — allow popups and retry.",
+    "auth/network-request-failed": "Network error. Check your connection and try again."
+  })[c] || "Something went wrong. Please try again.";
+}
 </script>
 </body>
 </html>
