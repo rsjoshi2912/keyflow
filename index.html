@@ -584,8 +584,7 @@ footer { border-top:1px solid var(--border); padding: 56px 0 46px; background:va
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark / light theme">🌙</button>
       <!-- account: logged-out -->
       <div class="acct" id="acctLoggedOut">
-        <button class="nav-link acct-login" id="navLogin">Log in</button>
-        <button class="btn acct-signup" id="navSignup">Sign up free</button>
+        <button class="btn acct-signup" id="navLogin">Log in</button>
       </div>
       <!-- account: logged-in (hidden until auth) -->
       <div class="acct-menu" id="acctLoggedIn" hidden>
@@ -642,7 +641,6 @@ footer { border-top:1px solid var(--border); padding: 56px 0 46px; background:va
           <a role="menuitem" class="dm-all" href="https://github.com/rsjoshi2912/keyflow/releases" target="_blank" rel="noopener">All versions &amp; SHA-256 checksums →</a>
         </div>
       </div>
-      <button class="btn btn-ghost" id="heroSignup">Create free account</button>
     </div>
     <div class="hero-note">Free account · installs in a minute · your progress syncs securely across devices</div>
 
@@ -1172,8 +1170,6 @@ function busy(on) { submitBtn.disabled = on; submitBtn.textContent = on ? "Pleas
 
 /* ── 4. Wiring ───────────────────────────────────────────────────────────── */
 $("navLogin").onclick    = () => openAuth("login");
-$("navSignup").onclick   = () => openAuth("register");
-$("heroSignup").onclick  = () => openAuth("register");
 $("authClose").onclick   = closeAuth;
 overlay.addEventListener("click", (e) => { if (e.target === overlay) closeAuth(); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && overlay.classList.contains("open")) closeAuth(); });
