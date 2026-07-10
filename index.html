@@ -992,10 +992,12 @@ tbtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') 
    Full walkthrough: AUTH-SETUP.md. Until real keys are in, the UI works but
    sign-in shows a "connect Firebase" notice.                                */
 const firebaseConfig = {
-  apiKey:      "PASTE_YOUR_FIREBASE_API_KEY",
-  authDomain:  "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId:   "PASTE_YOUR_PROJECT_ID",
-  appId:       "PASTE_YOUR_APP_ID"
+  apiKey:            "AIzaSyDr80OWFg5Z8t_hxtqcE-ia-35QklEyd-M",
+  authDomain:        "typeace-a517e.firebaseapp.com",
+  projectId:         "typeace-a517e",
+  storageBucket:     "typeace-a517e.firebasestorage.app",
+  messagingSenderId: "156087055730",
+  appId:             "1:156087055730:web:d9326c04194a28d59619eb"
 };
 const CONFIGURED = !Object.values(firebaseConfig).some(v => String(v).includes("PASTE_"));
 const SDK = "https://www.gstatic.com/firebasejs/10.12.5/";
@@ -1095,7 +1097,7 @@ $("authForm").addEventListener("submit", async (e) => {
     if (view === "register") {
       const cred = await fb.createUserWithEmailAndPassword(auth, email, pass);
       const name = fName.value.trim();
-      if (name) await fb.updateProfile(cred.user, { displayName: name });
+      if (name) { await fb.updateProfile(cred.user, { displayName: name }); renderUser(cred.user); }
     } else {
       await fb.signInWithEmailAndPassword(auth, email, pass);
     }
@@ -1135,6 +1137,9 @@ function mapErr(err) {
     "auth/email-already-in-use": "An account already exists for that email — try logging in.",
     "auth/weak-password": "Choose a stronger password (at least 6 characters).",
     "auth/too-many-requests": "Too many attempts. Please wait a moment and try again.",
+    "auth/operation-not-allowed": "This sign-in method isn't enabled yet. Please try again shortly.",
+    "auth/configuration-not-found": "Sign-in isn't switched on yet. Please try again shortly.",
+    "auth/unauthorized-domain": "This site isn't authorised for sign-in yet. Please try again shortly.",
     "auth/popup-closed-by-user": "Google sign-in was cancelled.",
     "auth/popup-blocked": "Your browser blocked the Google popup — allow popups and retry.",
     "auth/network-request-failed": "Network error. Check your connection and try again."
